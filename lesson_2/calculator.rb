@@ -77,20 +77,6 @@ loop do # main loop
     end
   end
 
-  # **** This is my original logic *****
-  # if operation == '1' || operation == 'add' || operation == '+'
-  #  prompt("#{number1} + #{number2} = #{number1.to_i + number2.to_i}")
-  # elsif operation == '2' || operation == 'subtract' || operation == '-'
-  #  prompt("#{number1} - #{number2} = #{number1.to_i - number2.to_i}")
-  # elsif operation == '3' || operation == 'multiply' || operation == '*'
-  #  prompt("#{number1} * #{number2} = #{number1.to_i * number2.to_i}")
-  # elsif operation == '4' || operation == 'divide' || operation == '/'
-  #  prompt("#{number1} / #{number2} = #{number1.to_f / number2.to_f}")
-  # else
-  #  prompt('You did not enter in an operator')
-  # end
-  # **** End of my Original logic ****
-
   prompt("#{operation_to_message(operator)} the two numbers...")
 
   result = case operator.downcase
