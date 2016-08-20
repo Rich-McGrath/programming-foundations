@@ -24,7 +24,7 @@ name = ''
 
 loop do
   name = gets.chomp
-  if name.empty?
+  if name.empty? # yes I am aware rubocop would like a guard clause.
     prompt('Make sure to use a valid name.')
   else
     break
@@ -67,13 +67,14 @@ loop do # main loop
   operator = ''
 
   loop do
-    prompt(operator_prompt)
+    prompt operator_prompt # remove option () i.e. prompt(operator_prompt)
     operator = gets.chomp
 
     if %w(1 2 3 4 add subtract multiply divide + - * /).include?(operator)
       break
     else
-      prompt("Must choose: 1. add + | 2. subtract  - | 3. multiply * | 4. divide / ")
+      prompt('Must choose: 1. add + | 2. subtract  - | 3. multiply *
+            | 4. divide / ')
     end
   end
 
