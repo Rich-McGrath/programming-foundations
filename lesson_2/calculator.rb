@@ -3,13 +3,12 @@ def prompt(message)
 end
 
 def valid_number?(num)
-  #num.to_i.nonzero?
-  #num.to_i >= 0
-  num.to_i.to_s == num
+  #num.to_i.to_s == num ||
+  num.to_f.to_s == num
 end
 
 def operation_to_message(op)
-  case op
+  word = case op
   when '1', 'add', '+'
     'Adding'
   when '2', 'subtract', '-'
@@ -19,6 +18,14 @@ def operation_to_message(op)
   when '4', 'divide', '/'
     'Dividing'
   end
+
+  x = 'a random line of code'
+
+  # if we wanted to add code after the case statement, we would need to save the
+  # return value of the case into a variable, then make sure to return that
+  # variable, or that variable must be the last line in the method.
+
+  word
 end
 
 prompt('Welcome to Calculator! Enter your name:')
