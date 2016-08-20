@@ -3,7 +3,9 @@ def prompt(message)
 end
 
 def valid_number?(num)
-  num.to_i.nonzero?
+  #num.to_i.nonzero?
+  #num.to_i >= 0
+  num.to_i.to_s == num
 end
 
 def operation_to_message(op)
