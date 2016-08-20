@@ -1,10 +1,12 @@
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
 def prompt(message)
   puts("=> #{message}")
 end
 
 def valid_number?(num)
-  #num.to_i.to_s == num ||
-  num.to_f.to_s == num
+  num.to_i.to_s == num
 end
 
 def operation_to_message(op)
@@ -28,13 +30,13 @@ def operation_to_message(op)
   word
 end
 
-prompt('Welcome to Calculator! Enter your name:')
+prompt(MESSAGES['welcome'])
 name = ''
 
 loop do
   name = gets.chomp
   if name.empty? # yes I am aware rubocop would like a guard clause.
-    prompt('Make sure to use a valid name.')
+    prompt(MESSAGES['valid_name'])
   else
     break
   end
@@ -47,43 +49,43 @@ loop do # main loop
   number2 = ''
 
   loop do
-    prompt('Please enter in a number:')
+    prompt(MESSAGES['enter_number'])
     number1 = gets.chomp
     if valid_number?(number1)
       break
     else
-      prompt("Hmmm... that dosen't look like a valide number")
+      prompt(MESSAGES['valid_number'])
     end
   end
 
   loop do
-    prompt('Please enter in a second number:')
+    prompt(MESSAGES['enter_2nd_number'])
     number2 = gets.chomp
     if valid_number?(number2)
       break
     else
-      prompt("Hmmm... that dosen't look like a valide number")
+      prompt(MESSAGES['valid_number'])
     end
   end
 
-  operator_prompt = <<-MSG
-    What operation would you like performed?
-    1. add +
-    2. subtract  -
-    3. multiply *
-    4. divide /
-  MSG
+  #operator_prompt = <<-MSG
+  #  What operation would you like performed?
+  #  1. add +
+  #  2. subtract  -
+  #  3. multiply *
+  #  4. divide /
+  #MSG
   operator = ''
 
   loop do
-    prompt operator_prompt # remove option () i.e. prompt(operator_prompt)
+    prompt(MESSAGES['operator_prompt'])
+    # prompt operator_prompt # remove option () i.e. prompt(operator_prompt)
     operator = gets.chomp
 
     if %w(1 2 3 4 add subtract multiply divide + - * /).include?(operator)
       break
     else
-      prompt('Must choose: 1. add + | 2. subtract  - | 3. multiply *
-            | 4. divide / ')
+      prompt(MESSAGES['must_choose'])
     end
   end
 
@@ -101,9 +103,9 @@ loop do # main loop
            end
 
   prompt("The results is #{result}")
-  prompt('Do you want to perform another calculation? (y to calculate again)')
+  prompt(MESSAGES['another_try'])
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
 end
 
-prompt('Thank you for using the calculator. Goodbye!')
+prompt(MESSAGES['goodbye'])
