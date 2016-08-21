@@ -56,6 +56,6 @@ loop do
   puts "Your monthly payment is $#{monthly_payment.round(2)}"
 
   puts 'Would you like to calculate another loan? (press y)'
-  answer = gets.chomp.downcase
-  break unless answer == 'y'
+  answer = gets.chomp
+  break unless answer.downcase.start_with?('y')
 end
