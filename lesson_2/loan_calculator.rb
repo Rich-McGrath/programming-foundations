@@ -50,7 +50,8 @@ loop do
     end
   end
 
-  monthly_payment = loan_amount.to_f * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)** - loan_in_months))
+  monthly_payment = loan_amount.to_f * (monthly_interest_rate / (1 - (
+                      1 + monthly_interest_rate)**- loan_in_months))
 
   puts "Your monthly payment is $#{monthly_payment.round(2)}"
 
