@@ -1,5 +1,9 @@
 VALID_CHOICES = %w(rock paper scissors).freeze
 
+def test_method
+  prompt('test message')
+end
+
 def prompt(message)
   puts("=> #{message}")
 end
@@ -8,7 +12,7 @@ def display_results(player, computer)
   if (player == 'rock' && computer == 'scissors') ||
      (player == 'paper' && computer == 'rock') ||
      (player == 'sicssors' && computer == 'paper')
-    prompt("You won!")
+    prompt('You won!')
   elsif (player == 'rock' && computer == 'paper') ||
         (player == 'paper' && computer == 'scissors') ||
         (player == 'scissors' && computer == 'rock')
