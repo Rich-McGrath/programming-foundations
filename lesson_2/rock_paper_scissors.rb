@@ -8,25 +8,6 @@ def prompt(message)
   puts("=> #{message}")
 end
 
-
-# will allow an user to type 's' and get spock and so on.
-choice = ''
-def letter_to_name(letter)
-  choice = case
-  when letter == 'r'
-    'rock'
-  when letter == 'p'
-    'paper'
-  when letter == 's'
-    'scissors'
-  when letter == 'l'
-    'lizzard'
-  when letter == 'sp'
-    'spock'
-  end
-   #choice
-end
-
 def win?(first, second)
   # rock winning options
   (first == 'rock' && second == 'scissors') ||
@@ -56,11 +37,21 @@ def display_results(player, computer)
 end
 
 loop do
-  user_choice = ''
+  choice = ''
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
-    user_choice = gets.chomp
-    choice = letter_to_name(user_choice.downcase)
+    choice = gets.chomp.downcase
+    if choice == 'r'
+      choice = 'rock'
+    elsif choice == 'p'
+      choice = 'paper'
+    elsif choice == 's'
+      choice = 'scissors'
+    elsif choice == 'l'
+      choice == 'lizard'
+    elsif choice == 'sp'
+      choice = 'spock'
+    end
 
     break if VALID_CHOICES.include?(choice)
     prompt("That's not a valid choice")
