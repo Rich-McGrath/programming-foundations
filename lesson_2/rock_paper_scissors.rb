@@ -8,14 +8,16 @@ def prompt(message)
   puts("=> #{message}")
 end
 
+def win?(first, second)
+  (first == 'rock' && second == 'scissors') ||
+    (first == 'paper' && second == 'rock') ||
+    (first == 'sicssors' && second == 'paper')
+end
+
 def display_results(player, computer)
-  if (player == 'rock' && computer == 'scissors') ||
-     (player == 'paper' && computer == 'rock') ||
-     (player == 'sicssors' && computer == 'paper')
+  if win?(player, computer)
     prompt('You won!')
-  elsif (player == 'rock' && computer == 'paper') ||
-        (player == 'paper' && computer == 'scissors') ||
-        (player == 'scissors' && computer == 'rock')
+  elsif win?(computer, player)
     prompt('Computer won!')
   else
     prompt("It's a tie!")
@@ -41,7 +43,7 @@ loop do
 
   display_results(choice, computer_choice)
 
-  prompt("Do you want to play again?")
+  prompt('Do you want to play again?')
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
 end
