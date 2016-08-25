@@ -1,4 +1,4 @@
-VALID_CHOICES = %w(rock paper scissors).freeze
+VALID_CHOICES = %w(rock paper scissors lizard spock).freeze
 
 def test_method
   prompt('test message')
@@ -9,9 +9,21 @@ def prompt(message)
 end
 
 def win?(first, second)
+  # rock winning options
   (first == 'rock' && second == 'scissors') ||
+    (first == 'rock' && second == 'lizard') ||
+    # paper winning options
     (first == 'paper' && second == 'rock') ||
-    (first == 'sicssors' && second == 'paper')
+    (first == 'paper' && seoond == 'spock') ||
+    # sicssors winnig options
+    (first == 'sicssors' && second == 'paper') ||
+    (first == 'sicssors' && second == 'lizard') ||
+    # lizard winning options
+    (first == 'lizard' && second == 'spock') ||
+    (first == 'lizard' && second == 'paper') ||
+    # spock winnning options
+    (first == 'spock' && second == 'scissors') ||
+    (first == 'spock' && second == 'rock')
 end
 
 def display_results(player, computer)
