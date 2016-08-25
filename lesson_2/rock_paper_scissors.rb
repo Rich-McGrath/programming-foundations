@@ -51,12 +51,13 @@ def letter_to_word(letter)
 end
 
 loop do
+  choice = ''
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
     choice = gets.chomp.downcase
 
     # This will convert users 1 letter input to the correct word
-    break if choice.length > 1
+    break if choice.length > 2
     choice = letter_to_word(choice)
 
     break if VALID_CHOICES.include?(choice)
