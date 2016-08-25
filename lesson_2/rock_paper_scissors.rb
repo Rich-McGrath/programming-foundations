@@ -35,6 +35,11 @@ loop do
     else
       prompt("That's not a valid choice")
     end
+
+    # tried to implement a Guard Clause but could not get it to work.
+    # Any gudiance you can provied would be greatly apperciated.
+    # return prompt("That's not a valid choice") unless
+    #  VALID_CHOICES.include?(choice.downcase)
   end
 
   computer_choice = VALID_CHOICES.sample
