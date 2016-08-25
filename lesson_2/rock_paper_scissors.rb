@@ -36,22 +36,28 @@ def display_results(player, computer)
   end
 end
 
+def letter_to_word(letter)
+  if letter == 'r'
+    'rock'
+  elsif letter == 'p'
+    'paper'
+  elsif letter == 's'
+    'scissors'
+  elsif letter == 'l'
+    'lizard'
+  elsif letter == 'sp'
+    'spock'
+  end
+end
+
 loop do
-  choice = ''
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(', ')}")
     choice = gets.chomp.downcase
-    if choice == 'r'
-      choice = 'rock'
-    elsif choice == 'p'
-      choice = 'paper'
-    elsif choice == 's'
-      choice = 'scissors'
-    elsif choice == 'l'
-      choice == 'lizard'
-    elsif choice == 'sp'
-      choice = 'spock'
-    end
+
+    # This will convert users 1 letter input to the correct word
+    break if choice.length > 1
+    choice = letter_to_word(choice)
 
     break if VALID_CHOICES.include?(choice)
     prompt("That's not a valid choice")
