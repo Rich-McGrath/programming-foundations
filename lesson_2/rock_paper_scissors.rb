@@ -52,9 +52,7 @@ loop do
   end
 
   # If user enters in letter will Reassign to matching word.
-  if valid_keys?(user_choice)
-    user_choice = letter_to_word(user_choice)
-  end
+  user_choice = letter_to_word(user_choice) if valid_keys?(user_choice)
 
   computer_choice = VALID_CHOICES.values.sample
 
