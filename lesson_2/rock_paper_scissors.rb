@@ -1,8 +1,9 @@
 VALID_CHOICES = { 'r' => 'rock', 'p' => 'paper', 's' => 'scissors',
                   'l' => 'lizard', 'sp' => 'spock' }.freeze
 
-WIN = %w( rockscissors rocklizard paperrock paperspock scissorspaper
-          sicssorslizard lizardspock lizardpaper spockscissors spockrock).freeze
+WINNING_COMBINATIONS = %w( rockscissors rocklizard paperrock paperspock
+                           scissorspaper sicssorslizard lizardspock lizardpaper
+                           spockscissors spockrock).freeze
 
 def prompt(message)
   puts("=> #{message}")
@@ -10,7 +11,7 @@ end
 
 def win?(first, second)
   merge_words = first + second
-  WIN.include? merge_words
+  WINNING_COMBINATIONS.include? merge_words
 end
 
 def display_results(player, computer)
@@ -61,18 +62,14 @@ loop do
 
   display_results(user_choice, computer_choice)
 
-  # I have tried for some time to get the if statement below into a method but,
-  # I have not successfullly pulled it off. Any gudiance you can provide is
-  # greatly appreciated. Please see the commented out method above.
-
-  # score(user_choice, computer_choice)
-
+  # Calculate Winnig score
   if win?(user_choice, computer_choice)
     player_score += 1
   elsif win?(computer_choice, user_choice)
     computer_score += 1
   end
 
+  # Quit game after 5 wins and declate the winner
   if player_score == 5
     puts 'You are the first to 5 wins!'
     break
