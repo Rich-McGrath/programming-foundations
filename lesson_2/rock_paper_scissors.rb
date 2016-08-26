@@ -1,9 +1,5 @@
 VALID_CHOICES = %w(rock paper scissors lizard spock).freeze
 
-def test_method
-  prompt('test message')
-end
-
 def prompt(message)
   puts("=> #{message}")
 end
@@ -36,6 +32,15 @@ def display_results(player, computer)
   end
 end
 
+#
+# def score(choice, computer_choice)
+#  if win?(choice, computer_choice)
+#    player_score =+ 1
+#  elsif win?(computer_choice, choice)
+#    computer_score =+ 1
+#  end
+# end
+
 def letter_to_word(letter)
   if letter == 'r'
     'rock'
@@ -49,6 +54,9 @@ def letter_to_word(letter)
     'spock'
   end
 end
+
+player_score = 0
+computer_score = 0
 
 loop do
   choice = ''
@@ -69,6 +77,23 @@ loop do
   prompt("You chose: #{choice}; Computer chose: #{computer_choice}")
 
   display_results(choice, computer_choice)
+
+  # I have tried for some time to get the if statement below into a method but,
+  # I have not successfullly pulled it off. Any gudiance you can provide is
+  # greatly appreciated. Please see the commented out method above.
+
+  # score(choice, computer_choice)
+
+  if win?(choice, computer_choice)
+    player_score += 1
+  elsif win?(computer_choice, choice)
+    computer_score += 1
+  end
+
+  break if player_score == 5
+  puts 'You are the first to 5 wins!'
+  break if computer_score == 5
+  puts 'The computer was the first to 5 win, you lose!'
 
   prompt('Do you want to play again?')
   answer = gets.chomp
