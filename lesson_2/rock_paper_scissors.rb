@@ -1,25 +1,16 @@
-VALID_CHOICES = %w(rock paper scissors lizard spock).freeze
+VALID_CHOICES = { 'r' => 'rock', 'p' => 'paper', 's' => 'scissors',
+                  'l' => 'lizard', 'sp' => 'spock' }.freeze
+
+WIN = %w( rockscissors rocklizard paperrock paperspock scissorspaper
+          sicssorslizard lizardspock lizardpaper spockscissors spockrock).freeze
 
 def prompt(message)
   puts("=> #{message}")
 end
 
 def win?(first, second)
-  # rock winning options
-  (first == 'rock' && second == 'scissors') ||
-    (first == 'rock' && second == 'lizard') ||
-    # paper winning options
-    (first == 'paper' && second == 'rock') ||
-    (first == 'paper' && second == 'spock') ||
-    # sicssors winnig options
-    (first == 'sicssors' && second == 'paper') ||
-    (first == 'sicssors' && second == 'lizard') ||
-    # lizard winning options
-    (first == 'lizard' && second == 'spock') ||
-    (first == 'lizard' && second == 'paper') ||
-    # spock winnning options
-    (first == 'spock' && second == 'scissors') ||
-    (first == 'spock' && second == 'rock')
+  merge_words = first + second
+  WIN.include? merge_words
 end
 
 def display_results(player, computer)
@@ -32,72 +23,68 @@ def display_results(player, computer)
   end
 end
 
-#
-# def score(choice, computer_choice)
-#  if win?(choice, computer_choice)
-#    player_score =+ 1
-#  elsif win?(computer_choice, choice)
-#    computer_score =+ 1
-#  end
-# end
-
 def letter_to_word(letter)
-  if letter == 'r'
-    'rock'
-  elsif letter == 'p'
-    'paper'
-  elsif letter == 's'
-    'scissors'
-  elsif letter == 'l'
-    'lizard'
-  elsif letter == 'sp'
-    'spock'
-  end
+  VALID_CHOICES[letter]
 end
 
+def valid_values?(user_enter_choice)
+  VALID_CHOICES.value?(user_enter_choice)
+end
+
+def valid_keys?(user_enter_choice)
+  VALID_CHOICES.key?(user_enter_choice)
+end
 player_score = 0
 computer_score = 0
 
+puts 'Welcome to Rock, Paper, Scissors, Lizzard, Spock!'
+puts 'First one to five wins!'
+
 loop do
-  choice = ''
+  user_choice = ''
   loop do
-    prompt("Choose one: #{VALID_CHOICES.join(', ')}")
-    choice = gets.chomp.downcase
+    prompt("Choose one: #{VALID_CHOICES}")
+    user_choice = gets.chomp.downcase
 
-    # This will convert users 1 letter input to the correct word
-    break if choice.length > 2
-    choice = letter_to_word(choice)
-
-    break if VALID_CHOICES.include?(choice)
+    break if valid_values?(user_choice) || valid_keys?(user_choice)
     prompt("That's not a valid choice")
   end
 
-  computer_choice = VALID_CHOICES.sample
+  # If user enters in letter will Reassign to matching word.
+  if valid_keys?(user_choice)
+    user_choice = letter_to_word(user_choice)
+  end
 
-  prompt("You chose: #{choice}; Computer chose: #{computer_choice}")
+  computer_choice = VALID_CHOICES.values.sample
 
-  display_results(choice, computer_choice)
+  prompt("You chose: #{user_choice}; Computer chose: #{computer_choice}")
+
+  display_results(user_choice, computer_choice)
 
   # I have tried for some time to get the if statement below into a method but,
   # I have not successfullly pulled it off. Any gudiance you can provide is
   # greatly appreciated. Please see the commented out method above.
 
-  # score(choice, computer_choice)
+  # score(user_choice, computer_choice)
 
-  if win?(choice, computer_choice)
+  if win?(user_choice, computer_choice)
     player_score += 1
-  elsif win?(computer_choice, choice)
+  elsif win?(computer_choice, user_choice)
     computer_score += 1
   end
 
-  break if player_score == 5
-  puts 'You are the first to 5 wins!'
-  break if computer_score == 5
-  puts 'The computer was the first to 5 win, you lose!'
+  if player_score == 5
+    puts 'You are the first to 5 wins!'
+    break
+  elsif computer_score == 5
+    puts 'The computer was the first to 5 win, you lose!'
+    break
+  end
 
   prompt('Do you want to play again?')
-  answer = gets.chomp
-  break unless answer.downcase.start_with?('y')
-end
+  prompt('Press any key to contune or q to quit')
+  answer = gets.chomp.downcase
 
+  break if answer == 'q'
+end
 prompt('Thank you for playing. Goodbye!')
