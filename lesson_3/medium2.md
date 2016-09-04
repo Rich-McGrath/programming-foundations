@@ -15,3 +15,5 @@ In Ruby, what gets passed in the parameter list is not what it appears. Under th
 So Spot's demo_hash starts off pointing to the munsters hash. His program could wind up replacing that with some other object id and then the family's data would be safe.
 
 In this case, the program does not reassign demo_hash -- it just uses it as-is. So the actual hash object that is being messed with inside of the method IS the munsters hash.
+
+7. Paper
