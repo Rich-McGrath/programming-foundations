@@ -6,4 +6,4 @@
 
 4. Please see: word_reverse.rb
 
-5. 
+5. 34 because the method is not changing the variable 'answer'
