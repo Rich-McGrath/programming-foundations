@@ -17,3 +17,5 @@ So Spot's demo_hash starts off pointing to the munsters hash. His program could 
 In this case, the program does not reassign demo_hash -- it just uses it as-is. So the actual hash object that is being messed with inside of the method IS the munsters hash.
 
 7. Paper
+
+8. no
