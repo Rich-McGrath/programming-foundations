@@ -1,4 +1,3 @@
-require 'pry'
 def is_a_number?(character)
   to_integer = character.to_i
   to_integer.to_s == character
@@ -10,7 +9,6 @@ end
 
 def dot_separated_ip_address?(input_string)
   dot_separated_words = input_string.split(".")
-  #binding.pry
   if !is_valid_ip?(dot_separated_words.join) || !is_a_number?(dot_separated_words.join)
     return false
   else
