@@ -13,3 +13,8 @@
   C) one is: two
      two is: three
      three is: one
+
+ 4. require 'securerandom'
+    SecureRandom.uuid
+
+    for books answer see: random_uuid.rb
