@@ -18,3 +18,5 @@
     SecureRandom.uuid
 
     for books answer see: random_uuid.rb
+
+  5. see ip_address.rb
