@@ -4,13 +4,14 @@ def a_number?(character)
 end
 
 def valid_ip?(character)
-  character.size >= 4 && character.size <= 12
+  character.size == 3
 end
 
 def dot_separated_ip_address?(input_string)
   dot_separated_words = input_string.split('.')
+  word = dot_separated_words.pop
   joined_words = dot_separated_words.join
-  return false if !valid_ip?(joined_words) || !a_number?(joined_words)
+  return false if !valid_ip?(word) || !a_number?(joined_words)
 end
 
 puts 'Please enter in an IP address'
