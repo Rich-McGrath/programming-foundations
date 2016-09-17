@@ -96,9 +96,12 @@ def detect_winner(brd)
   nil
 end
 
+player_score = 0
+computer_score = 0
+
 loop do
   board = intialize_board
-
+  puts 'First one to win 5 games wins the match!'
   loop do
     display_board(board)
     player_places_piece!(board)
@@ -107,12 +110,32 @@ loop do
     break if someone_won?(board) || board_full?(board)
   end
 
+  if detect_winner(board) == 'Player'
+    player_score += 1
+  elsif detect_winner(board) == 'Computer'
+    computer_score += 1
+  end
+
   display_board(board)
 
   if someone_won?(board)
     prompt "#{detect_winner(board)} won!"
+    prompt
   else
     prompt "It's a tie!"
+  end
+
+  prompt "Player score is: #{player_score}"
+  puts
+  prompt "Computer score is: #{computer_score}"
+  puts
+
+  if player_score == 5
+    puts 'Player wins the match'
+    break
+  elsif player_score == 5
+    puts 'Computer wins the match'
+    break
   end
 
   prompt 'Do you want to play again? (y or n)'
@@ -121,4 +144,5 @@ loop do
   # break if answer == 'n' || answer == 'no'
 end
 
+prompt
 prompt 'Thank you for play Tic Tac Toe. Goodbye!'
