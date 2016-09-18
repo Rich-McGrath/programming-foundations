@@ -57,18 +57,18 @@ def computer_places_piece!(brd)
   # computer attack first
   WINNING_LINES.each do |line|
     square = find_at_risk_square(line, brd, COMPUTER_MARKER)
-    break if square
+    #break if square
   end
   # defense second
   if square.nil?
     WINNING_LINES.each do |line|
       square = find_at_risk_square(line, brd, PLAYER_MARKER)
+      binding.pry
       break if square
     end
   end
-
   if !square && brd[5] == INITIAL_MARKER
-    brd[5] = COMPUTER_MARKER
+    square = 5
   else
     square = empty_squares(brd).sample
   end
