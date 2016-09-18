@@ -11,7 +11,7 @@ def prompt(msg)
   puts "=> #{msg}"
 end
 
-# rubocop:disable Metrics/MethodLength, Metrics/AbSize
+# rubocop:disable Metrics/AbcSize
 def display_board(brd)
   system 'clear'
   puts "You're #{PLAYER_MARKER}'s and the computer is #{COMPUTER_MARKER}'s"
@@ -29,7 +29,7 @@ def display_board(brd)
   puts "     |     |"
   puts ""
 end
-# rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+# rubocop:enable Metrics/AbcSize
 
 def joinor(arr, delimiter=', ', word='or')
   arr[-1] = "#{word} #{arr.last}" if arr.size > 1
@@ -52,24 +52,21 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
-def computer_places_piece!(brd)
-  square = nil
+def computer_places_piece!(brd, square = nil)
   # computer attack first
   WINNING_LINES.each do |line|
     square = find_at_risk_square(line, brd, COMPUTER_MARKER)
-    #break if square
   end
   # defense second
   if square.nil?
     WINNING_LINES.each do |line|
       square = find_at_risk_square(line, brd, PLAYER_MARKER)
-      binding.pry
       break if square
     end
   end
-  if !square && brd[5] == INITIAL_MARKER
+  if square.nil? && brd[5] == INITIAL_MARKER
     square = 5
-  else
+  elsif square.nil?
     square = empty_squares(brd).sample
   end
   brd[square] = COMPUTER_MARKER
