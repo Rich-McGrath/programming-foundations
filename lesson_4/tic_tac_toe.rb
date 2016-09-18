@@ -53,13 +53,11 @@ end
 
 def computer_places_piece!(brd)
   square = nil
-
   # computer attack first
   WINNING_LINES.each do |line|
     square = computer_attack(line, brd)
     break if square
   end
-
   # defense second
   if !square
     WINNING_LINES.each do |line|
@@ -68,10 +66,11 @@ def computer_places_piece!(brd)
     end
   end
 
-  if !square
+  if !square && brd[5] == INITIAL_MARKER
+    brd[5] = COMPUTER_MARKER
+  else
     square = empty_squares(brd).sample
   end
-
   brd[square] = COMPUTER_MARKER
 end
 
