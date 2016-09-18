@@ -55,13 +55,13 @@ def computer_places_piece!(brd)
   square = nil
   # computer attack first
   WINNING_LINES.each do |line|
-    square = computer_attack(line, brd)
+    square = find_at_risk_square(line, brd, COMPUTER_MARKER)
     break if square
   end
   # defense second
   if !square
     WINNING_LINES.each do |line|
-      square = find_at_risk_square(line, brd)
+      square = find_at_risk_square(line, brd, PLAYER_MARKER)
       break if square
     end
   end
@@ -74,16 +74,8 @@ def computer_places_piece!(brd)
   brd[square] = COMPUTER_MARKER
 end
 
-def find_at_risk_square(line, board)
-  if board.values_at(*line).count(PLAYER_MARKER) == 2
-    board.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
-  else
-    nil
-  end
-end
-
-def computer_attack(line, board)
-  if board.values_at(*line).count(COMPUTER_MARKER) == 2
+def find_at_risk_square(line, board, marker)
+  if board.values_at(*line).count(marker) == 2
     board.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
   else
     nil
@@ -130,17 +122,27 @@ def detect_winner(brd)
   nil
 end
 
+def who_goes_first
+  prompt 'Who gets to go first?'
+  prompt 'Press 1 for the Player'
+  prompt 'Press 2 for the Copmuter'
+  who_first = gets.chomp.to_i
+end
+
 player_score = 0
 computer_score = 0
-
+first = who_goes_first
 loop do
   board = intialize_board
   puts 'First one to win 5 games wins the match!'
+
   loop do
     display_board(board)
-    player_places_piece!(board)
+    #binding.pry
+    first == 1 ? player_places_piece!(board) : computer_places_piece!(board)
     break if someone_won?(board) || board_full?(board)
-    computer_places_piece!(board)
+    display_board(board)
+    first == 1 ? computer_places_piece!(board) : player_places_piece!(board)
     break if someone_won?(board) || board_full?(board)
   end
 
