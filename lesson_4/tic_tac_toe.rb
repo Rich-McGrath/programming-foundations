@@ -11,7 +11,7 @@ def prompt(msg)
   puts "=> #{msg}"
 end
 
-# rubocop:disable Metrics/MethodLength, Metrics/ABcSize
+# rubocop:disable Metrics/MethodLength, Metrics/AbSize
 def display_board(brd)
   system 'clear'
   puts "You're #{PLAYER_MARKER}'s and the computer is #{COMPUTER_MARKER}'s"
@@ -29,7 +29,7 @@ def display_board(brd)
   puts "     |     |"
   puts ""
 end
-# rubocop:enable Metrics/MethodLength, Metrics/ABcSize
+# rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
 def joinor(arr, delimiter=', ', word='or')
   arr[-1] = "#{word} #{arr.last}" if arr.size > 1
@@ -43,7 +43,8 @@ end
 def player_places_piece!(brd)
   square = ' '
   loop do
-    prompt("Choose a position to place a piece: #{joinor(empty_squares(brd), ', ')}")
+    prompt("Choose a position to place a piece:
+            #{joinor(empty_squares(brd), ', ')}")
     square = gets.chomp.to_i
     break if empty_squares(brd).include?(square)
     prompt "Sorry, that's not a valid choice."
@@ -77,8 +78,8 @@ end
 def find_at_risk_square(line, board, marker)
   if board.values_at(*line).count(marker) == 2
     board.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
-  else
-    nil
+    # else
+    #  nil
   end
 end
 
@@ -123,15 +124,22 @@ def detect_winner(brd)
 end
 
 def who_goes_first
-  prompt 'Who gets to go first?'
-  prompt 'Press 1 for the Player'
-  prompt 'Press 2 for the Copmuter'
-  gets.chomp.to_i
+  user_input = ' '
+  loop do
+    prompt 'Who gets to go first?'
+    prompt 'Press 1 for the Player'
+    prompt 'Press 2 for the Computer'
+    user_input = gets.chomp.to_i
+    break if user_input == 1 || user_input == 2
+    prompt "Sorry, that's not a valid choice."
+  end
+
+  if user_input == 1
+    'player'
+  elsif user_input == 2
+    'computer'
+  end
 end
-
-player_score = 0
-computer_score = 0
-
 
 def alternate_player(current_player)
   if current_player == 'player'
@@ -149,24 +157,24 @@ def place_piece!(board, current_player)
   end
 end
 
+player_score = 0
+computer_score = 0
+
 loop do
   board = intialize_board
   puts 'First one to win 5 games wins the match!'
 
-  if who_goes_first == 1
-    current_player = 'player'
-  else
-    current_player = 'computer'
-  end
+  current_player = if who_goes_first == 'player'
+                     'player'
+                   else
+                     'computer'
+                   end
 
   loop do
     display_board(board)
     place_piece!(board, current_player)
     current_player = alternate_player(current_player)
     break if someone_won?(board) || board_full?(board)
-    #display_board(board)
-
-    #break if someone_won?(board) || board_full?(board)
   end
 
   if detect_winner(board) == 'Player'
@@ -199,7 +207,6 @@ loop do
   prompt 'Do you want to play again? (y or n)'
   answer = gets.chomp.downcase
   break unless answer.start_with?('y')
-  # break if answer == 'n' || answer == 'no'
 end
 
 prompt 'Thank you for play Tic Tac Toe. Goodbye!'
