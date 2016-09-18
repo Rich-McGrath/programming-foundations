@@ -53,10 +53,19 @@ end
 
 def computer_places_piece!(brd)
   square = nil
+
+  # computer attack first
   WINNING_LINES.each do |line|
-    #binding.pry
-    square = find_at_risk_square(line, brd)
+    square = computer_attack(line, brd)
     break if square
+  end
+
+  # defense second
+  if !square
+    WINNING_LINES.each do |line|
+      square = find_at_risk_square(line, brd)
+      break if square
+    end
   end
 
   if !square
@@ -69,7 +78,16 @@ end
 def find_at_risk_square(line, board)
   if board.values_at(*line).count(PLAYER_MARKER) == 2
     board.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
-  binding.pry
+  else
+    nil
+  end
+end
+
+def computer_attack(line, board)
+  if board.values_at(*line).count(COMPUTER_MARKER) == 2
+    board.select { |k, v| line.include?(k) && v == INITIAL_MARKER }.keys.first
+  else
+    nil
   end
 end
 
@@ -137,7 +155,6 @@ loop do
 
   if someone_won?(board)
     prompt "#{detect_winner(board)} won!"
-    prompt
   else
     prompt "It's a tie!"
   end
@@ -161,5 +178,4 @@ loop do
   # break if answer == 'n' || answer == 'no'
 end
 
-prompt
 prompt 'Thank you for play Tic Tac Toe. Goodbye!'
