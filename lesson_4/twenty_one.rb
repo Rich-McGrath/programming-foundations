@@ -33,13 +33,21 @@ def give_card_to_player(random_suit, random_card)
   [{ random_suit => random_card }]
 end
 
-current_player = nil
+player = nil
+computer =nil
 
+# First Deal
 2.times do
-  if current_player.nil?
-    current_player = give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
+  if player.nil?
+    player = give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
   else
-    current_player << give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
+    player << give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
+  end
+  if computer.nil?
+    computer = give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
+  else
+    computer << give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
   end
 end
-puts "#{current_player.inspect}"
+puts "#{player.inspect}"
+puts "#{computer.inspect}"
