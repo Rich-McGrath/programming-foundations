@@ -19,30 +19,27 @@ DIAMONDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10].freeze
 CLUBS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10].freeze
 SPADES = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10].freeze
 
-suits = ['HEARTS', 'DIAMONDS', 'CLUBS', 'SPADES']
+SUITS = ['HEARTS', 'DIAMONDS', 'CLUBS', 'SPADES'].freeze
 
-def pick_random_suit(suits)
-  suits.sample
+def pick_random_suit
+  SUITS.sample
 end
 
-def pick_random_card(random_suit)
+def pick_random_card_value(random_suit)
   Object.const_get(random_suit).sample
 end
 
-def deal(random_suit, random_card)
-  [ { random_suit => random_card } ]
+def give_card_to_player(random_suit, random_card)
+  [{ random_suit => random_card }]
 end
 
-player = Array.new
+current_player = nil
 
 2.times do
-  random_suit = pick_random_suit(suits)
-  random_card = pick_random_card(random_suit)
-  if player.empty?
-    player = deal(random_suit, random_card)
-
+  if current_player.nil?
+    current_player = give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
   else
-    player << deal(random_suit, random_card)
+    current_player << give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
   end
 end
-puts "#{player.inspect}"
+puts "#{current_player.inspect}"
