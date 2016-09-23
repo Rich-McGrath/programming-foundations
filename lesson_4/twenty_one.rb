@@ -33,8 +33,18 @@ def give_card_to_player(random_suit, random_card)
   { random_suit => random_card }
 end
 
+def calculate_total(current_player)
+  total = 0
+  current_player.each do |cards|
+    cards.each { |_key, value| total += value }
+  end
+  total
+end
+
 player = Array.new
 computer = Array.new
+player_total = 0
+computer_total = 0
 
 # First Deal
 2.times do
@@ -42,18 +52,11 @@ computer = Array.new
   computer.push(give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit)))
 end
 
-player_total = 0
-player.each do |cards|
-  cards.each { |_key, value| player_total += value }
-end
-
-computer_total = 0
-computer.each do |cards|
-  cards.each { |_key, value| computer_total += value }
-end
+player_total += calculate_total(player)
+computer_total += calculate_total(computer)
 
 puts "#{player.inspect}"
 puts "Player total is #{player_total}"
 
 puts "#{computer.inspect}"
-puts "Player total is #{computer_total}"
+puts "Computer total is #{computer_total}"
