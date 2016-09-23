@@ -41,6 +41,10 @@ def calculate_total(current_player)
   total
 end
 
+def add_card_to_hand
+  give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
+end
+
 player = Array.new
 computer = Array.new
 player_total = 0
@@ -48,10 +52,11 @@ computer_total = 0
 
 # First Deal
 2.times do
-  player.push(give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit)))
-  computer.push(give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit)))
+  player.push(add_card_to_hand)
+  computer.push(add_card_to_hand)
 end
 
+# Caclucate Totals for player and the computer
 player_total += calculate_total(player)
 computer_total += calculate_total(computer)
 
