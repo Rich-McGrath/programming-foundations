@@ -30,24 +30,23 @@ def pick_random_card_value(random_suit)
 end
 
 def give_card_to_player(random_suit, random_card)
-  [{ random_suit => random_card }]
+  { random_suit => random_card }
 end
 
-player = nil
-computer =nil
+player = Array.new
+computer = Array.new
 
 # First Deal
 2.times do
-  if player.nil?
-    player = give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
-  else
-    player << give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
-  end
-  if computer.nil?
-    computer = give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
-  else
-    computer << give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit))
-  end
+  player.push(give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit)))
+  computer.push(give_card_to_player(pick_random_suit, pick_random_card_value(pick_random_suit)))
 end
+
+player_total = 0
+player.each do |cards|
+  cards.each { |_key, value| player_total += value }
+  # cards.each {  |_key, value| puts "The values are #{value}" }
+end
+
 puts "#{player.inspect}"
-puts "#{computer.inspect}"
+puts "Player total is #{player_total}"
