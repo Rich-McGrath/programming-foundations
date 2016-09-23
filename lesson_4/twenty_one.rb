@@ -45,8 +45,15 @@ end
 player_total = 0
 player.each do |cards|
   cards.each { |_key, value| player_total += value }
-  # cards.each {  |_key, value| puts "The values are #{value}" }
+end
+
+computer_total = 0
+computer.each do |cards|
+  cards.each { |_key, value| computer_total += value }
 end
 
 puts "#{player.inspect}"
 puts "Player total is #{player_total}"
+
+puts "#{computer.inspect}"
+puts "Player total is #{computer_total}"
